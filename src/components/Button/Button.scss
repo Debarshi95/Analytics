@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.Button {
+  @include button-base();
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  width: 100%;
+  border-radius: 0.25rem;
+  max-width: fit-content;
+  &__contained {
+    @extend .Button;
+    @include button-variant($button-contained, $text-primary);
+  }
+
+  &__text {
+    @extend .Button;
+    @include button-variant($background-primary, $button-contained);
+    border: 0.15rem solid $button-border;
+  }
+  & p {
+    margin: 0;
+  }
+}
