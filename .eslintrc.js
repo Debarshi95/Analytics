@@ -28,7 +28,7 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
-    'react/no-danger': 'off',
-    'react/jsx-props-no-spreading': ['error', { exceptions: ['button'] }],
+    'react/jsx-props-no-spreading': 'off',
+    'react/prop-types': 'off',
   },
 };
