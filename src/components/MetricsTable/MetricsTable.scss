@@ -1,0 +1,20 @@
+@import '../../styles/mixins';
+@import '../../styles/variables';
+
+.MetricsTable {
+  margin: 1rem 0;
+  &__root {
+    @extend .MetricsTable;
+    @include display(grid);
+    grid-template-columns: repeat(9, 1fr);
+    grid-auto-rows: 4rem;
+  }
+  &__column {
+    @include display(flex);
+    @include justify-content(center);
+    padding: 0.65rem 0;
+    width: 100%;
+    border-bottom: 0.15rem solid $button-border;
+    height: auto;
+  }
+}
