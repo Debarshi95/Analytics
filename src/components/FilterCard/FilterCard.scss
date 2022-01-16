@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.FilterCard {
+  @include button-base();
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  @include button-variant($background-primary, $button-contained);
+  border: 0.15rem solid $button-border;
+  margin: 0 0.75rem 0.75rem 0;
+  max-width: 10.5rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 0.5rem 2rem;
+
+  &--active {
+    @extend .FilterCard;
+    border-left: 0.5rem solid $button-contained;
+  }
+
+  &:hover {
+    background-color: $button-hover;
+  }
+  & > p {
+    margin: 0;
+  }
+}
