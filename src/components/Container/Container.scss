@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.Container__root {
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  @include align-items();
+  border: 0.15rem solid $button-border;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+.Container {
+  @include display(flex);
+
+  &__buttonWrapper {
+    @extend .Container;
+    @include justify-content(flex-end);
+    margin: 1rem 0;
+    & > div:first-child {
+      margin-right: 1rem;
+    }
+  }
+
+  &__filterWrapper {
+    @extend .Container;
+    flex-wrap: wrap;
+  }
+}
