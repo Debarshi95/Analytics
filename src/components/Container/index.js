@@ -1,15 +1,17 @@
 import React, { useCallback, useState } from 'react';
-import strings from '../../utils/strings';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateFilters } from '../../store/slices/filterSlice';
 import Button from '../Button';
 import FilterCard from '../FilterCard';
 import Typography from '../Typography';
 import './Container.scss';
 
-const Container = ({ handleOnApply, activeFilters, handleContainerClose, ...props }) => {
-  const [filterItems, setFilterItems] = useState([...strings.filterKeys]);
-  const [activeItems, setActiveItems] = useState({ ...activeFilters });
+const Container = ({ handleContainerOpen, ...props }) => {
+  const { filters } = useSelector((state) => state.filters);
+  const [filterItems, setFilterItems] = useState([...filters]);
+  const dispatch = useDispatch();
 
-  const onMoveCard = useCallback((fromIdx, toIdx) => {
+  const onMoveFilter = useCallback((fromIdx, toIdx) => {
     setFilterItems((prevList) => {
       const duplicateItems = [...prevList];
       const fromData = duplicateItems[fromIdx];
@@ -19,16 +21,19 @@ const Container = ({ handleOnApply, activeFilters, handleContainerClose, ...prop
     });
   }, []);
 
-  const handleOnFilterClick = useCallback((itemId) => {
-    setActiveItems((prev) => {
-      const duplicateObj = { ...prev };
-      if (duplicateObj[itemId]) {
-        delete duplicateObj[itemId];
-        return { ...duplicateObj };
-      }
-      const obj = { ...prev };
-      obj[itemId] = true;
-      return { ...obj };
+  const handleApplyChanges = () => {
+    dispatch(updateFilters([...filterItems]));
+  };
+
+  const handleOnFilterClick = useCallback((filterId) => {
+    setFilterItems((prevItems) => {
+      const updatedFilters = prevItems.map((item) => {
+        if (item.id === filterId) {
+          return { ...item, disabled: !item.disabled };
+        }
+        return item;
+      });
+      return [...updatedFilters];
     });
   }, []);
 
@@ -41,22 +46,22 @@ const Container = ({ handleOnApply, activeFilters, handleContainerClose, ...prop
             item={item}
             id={idx}
             key={item.id}
-            onMoveCard={onMoveCard}
-            disabled={!activeItems[item?.id]}
+            onMoveFilter={onMoveFilter}
+            disabled={item.disabled}
             handleOnItemClick={handleOnFilterClick}
           />
         ))}
       </div>
       <div className="Container__buttonWrapper">
-        <Button type="button" variant="text" onClick={handleContainerClose}>
+        <Button type="button" variant="text" onClick={handleContainerOpen}>
           Close
         </Button>
         <Button
           type="button"
           variant="contained"
           onClick={() => {
-            handleOnApply(filterItems, activeItems);
-            handleContainerClose();
+            handleApplyChanges();
+            handleContainerOpen();
           }}
         >
           Apply changes
