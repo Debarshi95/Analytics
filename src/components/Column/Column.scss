@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.Column__root {
+  max-width: 10rem;
+  font-weight: 400;
+
+  & h3 {
+    text-align: center;
+    font-weight: inherit;
+    margin: 0.75rem 0;
+  }
+
+  & h5 {
+    margin: 0;
+    font-weight: inherit;
+    padding: 0 1rem;
+    @include display(flex);
+  }
+}
+.Column__header {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+}
