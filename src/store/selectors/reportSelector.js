@@ -1,4 +1,6 @@
-/* eslint-disable import/prefer-default-export */
-const reportState = (state) => state.report;
+import { createSelector } from '@reduxjs/toolkit';
 
-export const selectReport = (state) => reportState(state).data;
+const selectReportState = (state) => state.report;
+
+export const selectReportData = createSelector(selectReportState, (subState) => subState.data);
+export const selectReportDates = createSelector(selectReportState, (subState) => subState.dates);
