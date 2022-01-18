@@ -6,6 +6,7 @@ const createStore = (initialState = {}) => {
     preloadedState: { ...initialState },
     reducer: rootReducer(),
     devTools: process.env.NODE_ENV !== 'production',
+    secure: false,
   });
 
   return store;
