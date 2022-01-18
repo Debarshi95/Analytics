@@ -1,22 +1,17 @@
 /* eslint-disable react/no-array-index-key */
 import React, { memo, useEffect } from 'react';
+import moment from 'moment';
+import numeral from 'numeral';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectReport } from '../../store/selectors/reportSelector';
+import { selectReportData } from '../../store/selectors/reportSelector';
 import { fetchAppDetails } from '../../store/slices/appDetailSlice';
-import { compactNumberFormat, currencyFormat, percentFormat } from '../../utils/formatOptions';
-import {
-  formatDate,
-  formatNumber,
-  getPercentage,
-  getTotal,
-  toStartCase,
-} from '../../utils/helper-funcs';
+import { getPercentage, getTotal, toStartCase } from '../../utils/helper-funcs';
 import Typography from '../Typography';
 import './Column.scss';
+import AppDetailsCell from '../AppDetailsCell';
 
 const Column = ({ colTitle }) => {
-  console.log('Column rendered', { colTitle });
-  const reportData = useSelector(selectReport);
+  const reportData = useSelector(selectReportData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,25 +22,26 @@ const Column = ({ colTitle }) => {
 
   const renderColumnData = (title, col) => {
     switch (title) {
+      case 'app_id':
+        return <AppDetailsCell appId={col[title]} />;
       case 'date':
-        return formatDate(col[title]);
+        return <Typography variant="h4">{moment(col[title]).format('D MMM YYYY')}</Typography>;
       case 'CTR': {
         const ctrPercent = Math.floor(getPercentage(col.requests, col.responses));
-        return formatNumber(ctrPercent, percentFormat);
+        return <Typography variant="h4">{numeral(ctrPercent).format('0.00%')}</Typography>;
       }
       case 'fill_rate': {
         const fillPercent = getPercentage(col.clicks, col.impressions);
-        return formatNumber(fillPercent, percentFormat);
+        return <Typography variant="h4">{numeral(fillPercent).format('0.00%')}</Typography>;
       }
       case 'revenue':
-        return formatNumber(col[title], currencyFormat);
+        return <Typography variant="h4">{numeral(col[title]).format('$0,0.00')}</Typography>;
       default:
-        return formatNumber(col[title]);
+        return <Typography variant="h4">{numeral(col[title]).format('0,0')}</Typography>;
     }
   };
 
   const renderColumnSubHeader = (title, dataArr) => {
-    console.log({ dataArr });
     switch (title) {
       case 'date':
         return <Typography variant="h3">{dataArr.length}</Typography>;
@@ -53,43 +49,41 @@ const Column = ({ colTitle }) => {
         return <Typography variant="h3">{dataArr.length}</Typography>;
       case 'revenue': {
         const total = getTotal(dataArr, title);
-        return <Typography variant="h3">{formatNumber(total, currencyFormat)}</Typography>;
+        return <Typography variant="h3">{numeral(total).format('$0,0.00')}</Typography>;
       }
       case 'CTR': {
         const totalRequest = getTotal(dataArr, 'requests');
         const totalResponse = getTotal(dataArr, 'responses');
-        const percent = getPercentage(totalRequest, totalResponse);
-        return <Typography variant="h3">{formatNumber(percent, percentFormat)}</Typography>;
+        const totalCTRPercent = getPercentage(totalRequest, totalResponse);
+        return <Typography variant="h3">{numeral(totalCTRPercent).format('0.00%')}</Typography>;
       }
       case 'fill_rate': {
         const totalClicks = getTotal(dataArr, 'clicks');
         const totalImpressions = getTotal(dataArr, 'impressions');
-        const percent = getPercentage(totalClicks, totalImpressions);
-        return <Typography variant="h3">{formatNumber(percent, percentFormat)}</Typography>;
+        const totalFillPercent = getPercentage(totalClicks, totalImpressions);
+        return <Typography variant="h3">{numeral(totalFillPercent).format('0.00%')}</Typography>;
       }
       default: {
         const total = getTotal(dataArr, title);
-        return (
-          <Typography variant="h3">{formatNumber(total, compactNumberFormat, 'en-GB')}</Typography>
-        );
+        return <Typography variant="h3">{numeral(total).format('0.0a')}</Typography>;
       }
     }
   };
 
   return (
-    <section className="Column__root">
+    <div className="Column__root">
       <Typography variant="h3">{toStartCase(colTitle)}</Typography>
       {reportData?.data && (
         <>
           <div className="Column__header">{renderColumnSubHeader(colTitle, reportData.data)}</div>
           {reportData.data.map((col, idx) => (
-            <div key={idx} className="MetricsTable__column">
-              <Typography variant="h5">{renderColumnData(colTitle, col)}</Typography>
+            <div key={idx} className="Column__body">
+              {renderColumnData(colTitle, col)}
             </div>
           ))}
         </>
       )}
-    </section>
+    </div>
   );
 };
 

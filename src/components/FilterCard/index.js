@@ -3,14 +3,10 @@ import { toStartCase } from '../../utils/helper-funcs';
 import Typography from '../Typography';
 import './FilterCard.scss';
 
-const FilterCard = ({ item, id, onMoveCard, handleOnItemClick, disabled, ...props }) => {
-  const [isFilterActive, setIsFilterActive] = useState(disabled);
-  console.log('Card rendered', { disabled });
+const FilterCard = ({ item, id, onMoveFilter, handleOnItemClick, disabled, ...props }) => {
+  const [isFilterDisabled, setIsFilterDisabled] = useState(disabled);
 
   const handleOnDragStart = (e) => {
-    setTimeout(() => {
-      // e.target.style.display = 'none';
-    }, 0);
     e.dataTransfer.setData('card_id', e.target.id);
     e.dataTransfer.dropEffect = 'move';
   };
@@ -22,12 +18,12 @@ const FilterCard = ({ item, id, onMoveCard, handleOnItemClick, disabled, ...prop
   const handleOnDrop = (e) => {
     const fromIdx = +e.dataTransfer.getData('card_id');
     const toIdx = +e.currentTarget.id;
-    onMoveCard(fromIdx, toIdx);
+    onMoveFilter(fromIdx, toIdx);
   };
 
   const handleOnClick = (e) => {
     handleOnItemClick(item.id);
-    setIsFilterActive(!isFilterActive);
+    setIsFilterDisabled(!isFilterDisabled);
     e.stopPropagation();
   };
   return (
@@ -39,9 +35,9 @@ const FilterCard = ({ item, id, onMoveCard, handleOnItemClick, disabled, ...prop
       id={id}
       onDrop={handleOnDrop}
       onDragOver={handleOnDragOver}
-      className={`FilterCard ${!isFilterActive ? 'FilterCard--active' : ''}`}
+      className={`FilterCard ${!isFilterDisabled ? 'FilterCard--active' : ''}`}
       onClick={handleOnClick}
-      disabled={isFilterActive}
+      disabled={isFilterDisabled}
       {...props}
     >
       <Typography variant="h4">{toStartCase(item.title)}</Typography>

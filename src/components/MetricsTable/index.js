@@ -1,26 +1,25 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReport } from '../../store/slices/reportSlice';
-import { selectReport } from '../../store/selectors/reportSelector';
-import './MetricsTable.scss';
+import { selectReportDates } from '../../store/selectors/reportSelector';
 import Column from '../Column';
+import './MetricsTable.scss';
+import { selectFilters } from '../../store/selectors/filterSelector';
 
-const MetricsTable = ({ itemsList, activeFilters }) => {
-  const reportData = useSelector(selectReport);
+const MetricsTable = () => {
+  const { startDate, endDate } = useSelector(selectReportDates);
+  const filters = useSelector(selectFilters);
   const disaptch = useDispatch();
 
   useEffect(() => {
-    if (!reportData?.data) {
-      disaptch(fetchReport());
-    }
-  }, [reportData?.data, disaptch]);
+    disaptch(fetchReport({ startDate, endDate }));
+  }, [disaptch, endDate, startDate]);
 
   return (
     <section className="MetricsTable__root">
-      {itemsList.map((item) => {
-        const { id, title } = item;
-        return activeFilters[id] ? <Column colTitle={title} key={id} /> : null;
+      {filters.map((item) => {
+        const { id, title, disabled } = item;
+        return !disabled ? <Column colTitle={title} key={id} /> : null;
       })}
     </section>
   );
