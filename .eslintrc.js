@@ -28,7 +28,9 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['e', 'state'] }],
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
+    'import/prefer-default-export': 'off',
   },
 };
