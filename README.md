@@ -1,8 +1,8 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/68632cdd-8aa7-4602-9a63-9b012588a8c3/deploy-status)](https://app.netlify.com/sites/debarshib-analytics/deploys)
 
-# ImageGram
+# Analytics-Board
 
-A responsive image sharing web app.
+A simple web to represent tabular data with drag n drop feature etc
 
 ## Demo
 
