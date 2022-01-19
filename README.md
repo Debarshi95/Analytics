@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+[![Netlify Status](https://api.netlify.com/api/v1/badges/68632cdd-8aa7-4602-9a63-9b012588a8c3/deploy-status)](https://app.netlify.com/sites/debarshib-analytics/deploys)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ImageGram
 
-## Available Scripts
+A responsive image sharing web app.
 
-In the project directory, you can run:
+## Demo
 
-### `yarn start`
+[Deployed on Netlify using github actions](https://debarshib-analytics.netlify.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Order/re-order columns based on order of filters
+- Tabular representation of data
+- Drag-Drop Features of filters
+- Addition/removal of columns in real time
+- Fetch data based on calender dates
+- Uses _memoized selectors_ to cache and optimize heavy computations
+- Uses Redux to maintain data state
 
-### `yarn test`
+## Built using:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [ReactJS](https://reactjs.org/) - Frontend framework
+- [ReduxToolkit](https://redux-toolkit.js.org/) - Centralized state management
+- [NumeralJS](http://numeraljs.com/) - A javascript library for formatting and manipulating numbers
+- [MomentJS](https://momentjs.com/) - Parse, validate, manipulate, and display dates and times in JavaScript
 
-### `yarn build`
+## Screenshots
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Desktop
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Desktop-1](screenshots/default.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Desktop-2](screenshots/calendar.png)
 
-### `yarn eject`
+![Desktop-3](screenshots/reorder.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Desktop-4](screenshots/all.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Run Locally
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Clone the project
+  ```
+  git clone https://github.com/Debarshi95/Analytics.git
+  ```
+- Go to the project directory
+- cd **analytics-board**
+- Install dependencies
+  ```
+  yarn
+  ```
+- Create a **.env.local** file
+- Create a project inside Google Firebase and export the configuration
+- Add the following configuration to your .env file
 
-## Learn More
+  ```
+  REACT_APP_BASE_URL="Provided Api base url"
+  ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Start the server
+  ```
+  yarn start
+  ```
