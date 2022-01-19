@@ -1,4 +1,18 @@
+@import '../../styles/mixins';
 .Analytics__root {
   max-width: 90%;
   margin: 0 auto;
+}
+
+.Analytics__header {
+  @include display(flex);
+  @include justify-content(space-between);
+  width: 100%;
+
+  & > div {
+    width: inherit;
+  }
+  & > div:last-child {
+    max-height: 2.6rem;
+  }
 }

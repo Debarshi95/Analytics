@@ -10,16 +10,26 @@
     font-weight: inherit;
     margin: 0.75rem 0;
   }
-
-  & h5 {
-    margin: 0;
-    font-weight: inherit;
-    padding: 0 1rem;
-    @include display(flex);
+  & h4 {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-align: center;
   }
 }
-.Column__header {
+.Column {
   @include display(flex);
   @include align-items(center);
   @include justify-content(center);
+
+  &__header {
+    @extend .Column;
+  }
+  &__body {
+    @extend .Column;
+    padding: 0.65rem 1rem;
+    width: 100%;
+    border-bottom: 0.15rem solid $button-border;
+    display: flex;
+  }
 }
